@@ -1,36 +1,166 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 MERN Authentication System
 
-## Getting Started
+A secure and scalable full-stack authentication system built using the **MERN stack**. This project demonstrates how modern authentication works in real-world applications using **JWT (JSON Web Tokens)** and **bcrypt password hashing**.
 
-First, run the development server:
+---
+
+## 🚀 Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* Tailwind CSS (optional)
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB (Mongoose)
+
+### Authentication
+
+* JWT (JSON Web Tokens)
+* bcrypt (Password Hashing)
+
+---
+
+## ✨ Features
+
+* User Registration & Login
+* Secure Password Hashing using bcrypt
+* JWT-based Authentication
+* Protected Routes
+* REST API Integration
+* Scalable Backend Structure
+
+---
+
+## 📁 Project Structure
+
+```
+/client   → Next.js frontend
+/server   → Node.js backend
+
+/server
+ ├── models/
+ ├── routes/
+ ├── controllers/
+ ├── middleware/
+ └── server.js
+```
+
+---
+
+## 🔐 How Authentication Works
+
+1. User registers with email & password
+2. Password is hashed using bcrypt
+3. Data is stored in MongoDB
+4. User logs in
+5. Server verifies credentials
+6. JWT token is generated
+7. Token is used to access protected routes
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/your-username/AuthSystem-MERN.git
+cd AuthSystem-MERN
+```
+
+---
+
+### 2️⃣ Setup Backend
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+```
+
+Run backend:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3️⃣ Setup Frontend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd client
+npm install
+npm run dev
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🔌 API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📌 Auth Routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Method | Endpoint      | Description       |
+| ------ | ------------- | ----------------- |
+| POST   | /api/register | Register new user |
+| POST   | /api/login    | Login user        |
+| GET    | /api/profile  | Protected route   |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛡️ Security Practices
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Passwords are hashed using bcrypt
+* JWT tokens used for secure authentication
+* Protected routes using middleware
+* Environment variables for sensitive data
+
+---
+
+## 📸 Future Improvements
+
+* Refresh Tokens
+* Email Verification
+* Forgot Password System
+* Role-Based Authorization
+* OAuth (Google, GitHub login)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork this repo and submit a pull request.
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Muhammed Shameem**
+
+* Passionate Full Stack Developer
+* Focused on UI/UX & Web Development
+
+---
+
+⭐ If you like this project, don’t forget to star the repo!
