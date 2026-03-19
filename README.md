@@ -157,9 +157,9 @@ This project is open-source and available under the MIT License.
 ## 👨‍💻 Author
 
 **Muhammed Shameem**
-
+* Under Graduate Student
 * Passionate Full Stack Developer
-* Focused on UI/UX & Web Development
+* Focused on UI/UX ,Web Development & Mobile application Development
 
 ---
 
