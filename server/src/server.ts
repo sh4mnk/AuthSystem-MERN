@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors(
   {
-    origin:"https://sh4mnk-auth-mern.vercel.app/",
+    origin:"https://sh4mnk-auth-mern.vercel.app",
     credentials : true
   }
 ));
