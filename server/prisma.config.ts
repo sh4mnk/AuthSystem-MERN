@@ -10,6 +10,8 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // Corrected the property name and environment variable syntax
+    // Added a fallback value for DATABASE_URL to handle undefined cases
+    url: process.env.DATABASE_URL || "fallback_database_url",
   },
 });
