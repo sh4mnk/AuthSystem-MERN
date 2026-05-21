@@ -4,7 +4,8 @@
     "target": "ES6",
     "types": ["node"],
     "esModuleInterop": true,
-    "rootDir": "./",
+
+    "rootDir": "./src",
     "outDir": "./dist",
 
     "sourceMap": true,
@@ -12,5 +13,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "prisma.config.ts"]
+
+  "include": ["src/**/*"]
 }
