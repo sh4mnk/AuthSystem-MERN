@@ -42,16 +42,14 @@ export const loginController = async (req: Request, res: Response) => {
 
         //check if user exists
         const existingUser = await prisma.user.findUnique({
-            where : {email , password}
-            
+            where: { email },
         });
-        
-        if(!existingUser?.email && !existingUser?.password){
-            return res.status(404).json({message : "User not found"});
+
+        if (!existingUser) {
+            return res.status(404).json({ message: "User not found" });
         }
 
-
-    if (existingUser.password !== password){
+        if (existingUser.password !== password) {
         return res.status(401).json({message : "Invalid credentials"});
     }
 
