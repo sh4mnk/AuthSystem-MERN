@@ -17,7 +17,7 @@ export default function SignupPage() {
     <div className="hidden lg:flex items-center justify-center bg-zinc-900 text-white p-15">
       <h5 className="max-w-2xl text-xl font-bold leading-[1.2]  whitespace-pre-line ">
         {`“Build. Create. Innovate.
-Your account is more than just access — it’s the beginning of your digital journey.
+Your account is more than just access — it’s the beginning of your digital journey. 
 Sign up today and turn ideas into reality.”`}
       </h5>
     </div>

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+const baseURL =
+  process.env.NEXT_PUBLIC_API_URL ??
+  (typeof window === "undefined" ? "http://localhost:5000/api" : "/api");
 
 const api = axios.create({
-  baseURL:
-    process.env.NEXT_PUBLIC_API_URL ||
-    "http://localhost:5000/api",
+  baseURL,
   withCredentials: true,
 });
 
