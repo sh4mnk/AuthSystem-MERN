@@ -27,7 +27,7 @@ export function SignupForm({
   const handlesubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await api.post("/auth/signup", {
+      await api.post("/signup", {
          name,
          email, 
          password });
