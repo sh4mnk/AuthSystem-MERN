@@ -7,7 +7,12 @@ router.post("auth/signup", signupController);
 router.post("/auth/login", loginController);
 router.post("/auth/logout", logoutController);
 
+router.get("/auth/test", (req, res) => {
+  res.json({ message: "auth route works" });
+});
 
 
 export default router;
+
+
 
