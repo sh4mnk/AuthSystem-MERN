@@ -20,7 +20,7 @@ export function LogoutButton() {
 
   const handleLogout = async () => {
     try {
-      await api.post("auth/logout")
+      await api.post("/auth/logout")
       toast.success("Logged out successfully")
     } catch {
       toast.error("Failed to log out")
