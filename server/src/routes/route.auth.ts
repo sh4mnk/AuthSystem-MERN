@@ -3,9 +3,9 @@ import { signupController, loginController, logoutController } from "../controll
 
 const router = express.Router();
 
-router.post("/signup", signupController);
-router.post("/login", loginController);
-router.post("/logout", logoutController);
+router.post("/auth/signup", signupController);
+router.post("/auth/login", loginController);
+router.post("/auth/logout", logoutController);
 
 
 

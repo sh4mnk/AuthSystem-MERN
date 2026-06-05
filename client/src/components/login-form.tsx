@@ -27,7 +27,7 @@ export function LoginForm({
    const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await api.post("/login", {
+      const res = await api.post("/auth/login", {
          email, 
          password });
       console.log(res.data.message);

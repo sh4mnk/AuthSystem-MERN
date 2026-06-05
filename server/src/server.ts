@@ -6,11 +6,16 @@ import authRouter from "./routes/route.auth";
 
 const app = express();
 
-app.use(cors(
-  {
-     origin: "https://auth-system-mern-eta.vercel.app",
-  }
-));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://auth-system-mern-eta.vercel.app",
+    ],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 app.use("/api", authRouter);
