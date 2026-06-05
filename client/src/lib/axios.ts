@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_APP_API_URL || "http://localhost:5000/api",
+  baseURL: "https://authentication-mern-t82i.onrender.com/api",
   withCredentials: false,
 });
+
+console.log(process.env.NEXT_PUBLIC_API_URL);
+
+
 
 export default api;

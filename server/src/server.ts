@@ -13,7 +13,7 @@ app.use(cors(
 ));
 app.use(express.json());
 
-app.use("/api/auth", authRouter);
+app.use("/api", authRouter);
 
 const PORT = process.env.PORT || 5000;
 
