@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
-import authRouter from "./routes/route.auth";
+import authRouter from "../dist/routes/route.auth";
 
 const app = express();
 
@@ -20,6 +20,15 @@ app.use(
     credentials: true,
   })
 );
+
+app.get("/api/test", (req, res) => {
+  res.send("API Working");
+});
+
+app.get("/", (req, res) => {
+  res.send("Backend Working");
+});
+
 
 app.use(express.json());
 
