@@ -6,7 +6,9 @@ const baseURL =
 
 const api = axios.create({
   baseURL,
-  withCredentials: true,
+  // withCredentials is only needed when sending cookies or HTTP auth headers
+  // to a cross-origin backend. This app currently does not use cookie-based auth,
+  // so removing it avoids CORS credential issues in production.
 });
 
 export default api;

@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# next
+.next/
+
+# env
+.env
+.env.local
+
+# logs
+*.log
+
+# build
+dist/
+build/
+
+# prisma
+prisma/dev.db
