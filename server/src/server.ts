@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors(
   {
-     origin: process.env.CLIENT_URL || "http://localhost:3000",
+     origin: "https://auth-system-mern-eta.vercel.app",
   }
 ));
 app.use(express.json());
