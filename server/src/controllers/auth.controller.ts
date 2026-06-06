@@ -1,5 +1,4 @@
 
-
 import { Request , Response  } from "express";
 
 import prisma from "../config/prisma";
@@ -60,10 +59,16 @@ export const loginController = async (req: Request, res: Response) => {
         console.error("Error logging in:", error);
         res.status(500).json({ message: "Internal server error" });
     }
-
 }
 
 export const logoutController = async (_req: Request, res: Response) => {
     res.status(200).json({ message: "Logged out successfully" });
 }
+
+export const forgotPasswordController = async  (req: Request, res: Response) => {
+    try {}catch (error) {}
+
+}
+
+
 

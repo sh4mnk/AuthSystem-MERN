@@ -11,6 +11,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.use(
   cors({
     origin: [
@@ -20,6 +21,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 app.get("/api/test", (req, res) => {
   res.send("API Working");
@@ -37,10 +39,10 @@ app.use("/api", authRouter);
 
 const PORT = process.env.PORT || 5000;
 
+
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });
-
 
 
 export { app };

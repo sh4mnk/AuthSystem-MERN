@@ -31,10 +31,9 @@ export function SignupForm({
          name,
          email, 
          password });
-      
       // Handle successful signup (e.g., redirect to login page)
-      toast.success("Account created successfully! Your welcome !! ");
       router.push("/dashboard");
+      toast.success("Account created successfully! Your welcome !! ");
     }catch (error: unknown) {
   if (axios.isAxiosError(error)) {
     toast.error(error.response?.data?.message);

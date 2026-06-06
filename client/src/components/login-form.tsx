@@ -23,21 +23,24 @@ export function LoginForm({
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
    const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await api.post("/auth/login", {
+        
+        setLoading(true);
+        const res = await api.post("/auth/login", {
          email, 
          password });
       console.log(res.data.message);
+      setLoading(false);
+      router.push("/dashboard");
       // Handle successful signup (e.g., redirect to login page)
-      toast.success("Welcome back!");
       if(res.data.message === "Login successful"){
         toast.success("Login successful");
       }
-      router.push("/dashboard");
-      
+      toast.success("Welcome back!");
 
     } catch (error) {
       console.error("Error signing up:", error);
@@ -91,7 +94,10 @@ export function LoginForm({
           />
         </Field>
         <Field>
-          <Button type="submit">Login</Button>
+          <Button type="submit" disabled={loading}>
+            
+            {loading ? "Logging in..." : "Login" }
+            </Button>
         </Field>
         <FieldSeparator>Or continue with</FieldSeparator>
         <Field>
