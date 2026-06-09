@@ -33,13 +33,16 @@ export function LoginForm({
         const res = await api.post("/auth/login", {
          email, 
          password });
+         router.push("/dashboard");
       console.log(res.data.message);
       setLoading(false);
-      router.push("/dashboard");
       // Handle successful signup (e.g., redirect to login page)
       if(res.data.message === "Login successful"){
         toast.success("Login successful");
+      }else{
+        toast.error("Invalid email or password");
       }
+      
       toast.success("Welcome back!");
 
     } catch (error) {
@@ -94,7 +97,7 @@ export function LoginForm({
           />
         </Field>
         <Field>
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading}>
             
             {loading ? "Logging in..." : "Login" }
             </Button>

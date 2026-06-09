@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 import prisma from "../config/prisma";
 import { generateAccessToken } from "../utils/jwt";
 
+
+
+// Signup Controller
 export const signupController = async (
   req: Request,
   res: Response
@@ -61,6 +64,9 @@ export const signupController = async (
   }
 };
 
+
+// Login Controller
+
 export const loginController = async (
   req: Request,
   res: Response
@@ -116,6 +122,10 @@ export const loginController = async (
   }
 };
 
+
+
+
+// Logout Controller
 export const logoutController = async (
   _req: Request,
   res: Response
