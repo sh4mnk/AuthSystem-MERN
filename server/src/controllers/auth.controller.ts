@@ -46,6 +46,8 @@ export const signupController = async (
       user.email
     );
 
+    
+
     return res.status(201).json({
       message: "User created successfully",
       token,
