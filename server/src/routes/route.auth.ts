@@ -12,5 +12,7 @@ router.post("/auth/logout", logoutController);
 
 router.post("/auth/forgot-password",forgotPasswordController);
 
+router.post("/auth/admin/users");
+
 
 export default router;

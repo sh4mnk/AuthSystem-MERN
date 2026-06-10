@@ -23,10 +23,6 @@ app.use(
 );
 
 
-app.get("/api/test", (req, res) => {
-  res.send("API Working");
-
-});
 
 app.get("/", (req, res) => {
   res.send("Backend Working");
