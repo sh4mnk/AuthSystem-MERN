@@ -3,10 +3,15 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 
+export interface AuthRequest extends Request {
+  existingUser?: any;
+}
 
+
+// This middleware checks if the user is authenticated and has admin privileges
 
 export const protect = (
-  req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -25,7 +30,7 @@ export const protect = (
       process.env.JWT_SECRET!
     );
 
-    req.User = decoded;
+    req.existingUser= decoded;
 
     next();
   } catch (error) {
@@ -35,20 +40,3 @@ export const protect = (
     });
   }
 };
-
-
-export const adminOnly = (
-    req: Express.Request,
-    res: Express.Response,
-    next: NextFunction
-
- )=> {
-    if (req.User.role !== "admin") {
-        return res.status(403).json({
-            success: false,
-            message: "Forbidden: Admins only",
-        });
-    }
-    next();
-
- }

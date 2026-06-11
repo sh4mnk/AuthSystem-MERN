@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 
 import prisma from "../config/prisma";
 import { generateAccessToken } from "../utils/jwt";
+import { AuthRequest } from "../middleware/auth.middlware";
 
 
 
@@ -46,7 +47,7 @@ export const signupController = async (
       user.email
     );
 
-    
+
 
     return res.status(201).json({
       message: "User created successfully",
@@ -106,14 +107,22 @@ export const loginController = async (
       existingUser.email
     );
 
-    return res.status(200).json({
-      message: "Login successful",
-      token,
-      user: {
-        id: existingUser.id,
-        name: existingUser.name,
-        email: existingUser.email,
-      },
+        res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+      return res.status(200).json({
+        message: "Login successful",
+        token,
+        user: {
+          id: existingUser.id,
+          name: existingUser.name,
+          email: existingUser.email,
+          role: (existingUser as any).role,
+        },
     });
   } catch (error) {
     console.error("Login Error:", error);
@@ -125,6 +134,46 @@ export const loginController = async (
 };
 
 
+export const userProfileController = async (
+  req: AuthRequest,
+  res: Response
+) => {
+  try {
+    const userId = req.existingUser?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    console.error("Profile Error:", error);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
 
 
 // Logout Controller
@@ -132,6 +181,8 @@ export const logoutController = async (
   _req: Request,
   res: Response
 ) => {
+
+  res.clearCookie("token");
   return res.status(200).json({
     message: "Logged out successfully",
   });

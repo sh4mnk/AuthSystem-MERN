@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookie from "cookie-parser";
 import authRouter from "./routes/route.auth";
 dotenv.config();
 
@@ -22,7 +23,7 @@ app.use(
   })
 );
 
-
+app.use(cookie());
 
 app.get("/", (req, res) => {
   res.send("Backend Working");
