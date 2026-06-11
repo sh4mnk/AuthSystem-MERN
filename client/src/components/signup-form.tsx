@@ -32,7 +32,7 @@ export function SignupForm({
          email, 
          password });
       // Handle successful signup (e.g., redirect to login page)
-      router.push("/dashboard");
+      router.push("/dashboard/user");
       toast.success("Account created successfully! Your welcome !! ");
     }catch (error: unknown) {
   if (axios.isAxiosError(error)) {

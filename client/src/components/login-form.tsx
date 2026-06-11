@@ -15,46 +15,59 @@ import { useRouter } from "next/navigation"
 import api from "@/lib/axios"
 import { toast } from "sonner"
 import { useState } from "react"
+import axios from "axios"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-   const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-        
-        setLoading(true);
-        const res = await api.post("/auth/login", {
-         email, 
-         password });
-         router.push("/dashboard");
-      console.log(res.data.message);
-      setLoading(false);
-      // Handle successful signup (e.g., redirect to login page)
-      if(res.data.message === "Login successful"){
-        toast.success("Login successful");
-      }else{
-        toast.error("Invalid email or password");
-      }
-      
-      toast.success("Welcome back!");
+   try {
+  setLoading(true);
+  const res = await api.post("/auth/login", {
+    email,
+    password,
+  });
 
-    } catch (error) {
-      console.error("Error signing up:", error);
-      toast.error("Invalid email or password");
+  const { message, user } = res.data;
 
-    }
+  if (message !== "Login successful") {
+    toast.error("Invalid email or password");
+    return;
+  }
+
+  
+  if (user.role === "ADMIN") {
+    router.push("/dashboard/admin");
+  } else {
+    router.push("/dashboard/user");
+  }
+  toast.success(`Welcome back, ${user.name || "User"}!`);
+  
+}catch (error: unknown) {
+  if (axios.isAxiosError(error)) {
+    toast.error(
+      error.response?.data?.message ||
+      "Login failed"
+    );
+  } else {
+    toast.error("Unexpected error occurred");
+  }
+} finally {
+  setLoading(false);
+}
   };
 
 
 
-  const router = useRouter();
 
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={handleClick}>
@@ -98,9 +111,9 @@ export function LoginForm({
         </Field>
         <Field>
           <Button type="submit" className="w-full" disabled={loading}>
-            
-            {loading ? "Logging in..." : "Login" }
-            </Button>
+
+            {loading ? "Logging in..." : "Login"}
+          </Button>
         </Field>
         <FieldSeparator>Or continue with</FieldSeparator>
         <Field>

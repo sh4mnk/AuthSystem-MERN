@@ -153,6 +153,7 @@ export const userProfileController = async (
         id: true,
         name: true,
         email: true,
+        role: true,
       },
     });
 
