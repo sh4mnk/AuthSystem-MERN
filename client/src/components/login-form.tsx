@@ -46,9 +46,9 @@ export function LoginForm({
 
   
   if (user.role === "ADMIN") {
-    router.push("/dashboard/admin");
+    router.push("/admin/dashboard");
   } else {
-    router.push("/dashboard/user");
+    router.push("/dashboard");
   }
   toast.success(`Welcome back, ${user.name || "User"}!`);
   
