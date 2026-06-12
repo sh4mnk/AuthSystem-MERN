@@ -16,6 +16,7 @@ import api from "@/lib/axios"
 import { toast } from "sonner"
 import { useState } from "react"
 import axios from "axios"
+import Cookies from "js-cookie"
 
 export function LoginForm({
   className,
@@ -37,27 +38,34 @@ export function LoginForm({
     password,
   });
 
-  const { message, user } = res.data;
+  const { message, token, user } = res.data;
 
-  if (message !== "Login successful") {
+  if (message !== "Login successful" || !token || !user) {
     toast.error("Invalid email or password");
     return;
   }
 
-  
-  if (user.role === "ADMIN") {
-    router.push("/admin/dashboard");
-  } else {
-    router.push("/dashboard");
-  }
+  Cookies.set("token", token, {
+    expires: 7,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
+
   toast.success(`Welcome back, ${user.name || "User"}!`);
-  
+
+  if (user.role === "ADMIN") {
+    router.push("/dashboard/admin");
+  } else {
+    router.push("/dashboard/user");
+  }
 }catch (error: unknown) {
   if (axios.isAxiosError(error)) {
     toast.error(
       error.response?.data?.message ||
       "Login failed"
     );
+  } else if (error instanceof Error) {
+    toast.error(error.message);
   } else {
     toast.error("Unexpected error occurred");
   }

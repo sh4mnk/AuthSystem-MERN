@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import api from "@/lib/axios"
+import Cookies from "js-cookie"
 
 export function LogoutButton() {
   const router = useRouter()
@@ -25,6 +26,7 @@ export function LogoutButton() {
     } catch {
       toast.error("Failed to log out")
     } finally {
+      Cookies.remove("token")
       router.push("/login")
     }
   }

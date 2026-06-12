@@ -15,7 +15,9 @@ export const protect = (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies.accessToken;
+  const token =
+    req.cookies.token ||
+    req.headers.authorization?.replace("Bearer ", "");
 
   if (!token) {
     return res.status(401).json({

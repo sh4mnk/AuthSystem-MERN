@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import prisma from "../config/prisma";
 import { generateAccessToken } from "../utils/jwt";
@@ -44,7 +44,8 @@ export const signupController = async (
     // Generate JWT
     const token = generateAccessToken(
       user.id,
-      user.email
+      user.email,
+      user.role
     );
 
 
@@ -104,13 +105,14 @@ export const loginController = async (
     // Generate JWT
     const token = generateAccessToken(
       existingUser.id,
-      existingUser.email
+      existingUser.email,
+      existingUser.role
     );
 
-        res.cookie("token", token, {
+    res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -121,7 +123,7 @@ export const loginController = async (
           id: existingUser.id,
           name: existingUser.name,
           email: existingUser.email,
-          role: (existingUser as any).role,
+          role: existingUser.role,
         },
     });
   } catch (error) {
@@ -183,11 +185,17 @@ export const logoutController = async (
   res: Response
 ) => {
 
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
   return res.status(200).json({
     message: "Logged out successfully",
   });
 };
+
+
 
 export const forgotPasswordController = async (
   req: Request,

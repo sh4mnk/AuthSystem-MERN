@@ -13,6 +13,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import axios from "axios"
+import Cookies from "js-cookie"
 
 export function SignupForm({
   className,
@@ -27,13 +28,21 @@ export function SignupForm({
   const handlesubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await api.post("/auth/signup", {
+      const res = await api.post("/auth/signup", {
          name,
          email, 
          password });
-      // Handle successful signup (e.g., redirect to login page)
+
+      if (res.data.token) {
+        Cookies.set("token", res.data.token, {
+          expires: 7,
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
+        });
+      }
+
+      toast.success("Account created successfully!!");
       router.push("/dashboard/user");
-      toast.success("Account created successfully! Your welcome !! ");
     }catch (error: unknown) {
   if (axios.isAxiosError(error)) {
     toast.error(error.response?.data?.message);

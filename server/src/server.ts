@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: [
+    origin: process.env.CLIENT_URL || [
       "http://localhost:3000",
       "https://auth-system-mern-eta.vercel.app",
     ],
