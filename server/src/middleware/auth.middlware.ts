@@ -16,8 +16,8 @@ export const protect = (
   next: NextFunction
 ) => {
   const token =
-    req.cookies.token ||
-    req.headers.authorization?.replace("Bearer ", "");
+    req.cookies?.token || req.cookies?.accessToken ||
+    (req.headers.authorization ? String(req.headers.authorization).split(" ")[1] : undefined);
 
   if (!token) {
     return res.status(401).json({
@@ -36,6 +36,7 @@ export const protect = (
 
     next();
   } catch (error) {
+    console.error("Token verification failed:", error);
     return res.status(401).json({
       success: false,
       message: "Invalid Token",
